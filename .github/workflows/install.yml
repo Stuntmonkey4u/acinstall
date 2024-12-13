@@ -3,15 +3,15 @@ name: Test AzerothCore Installation Script
 on:
   push:
     branches:
-      - main  # Or any branch you want to trigger the workflow on
+      - main  # Trigger the workflow on push to main (or your desired branch)
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest  # Run on the latest Ubuntu image
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3  # Checks out the code so that your install script is available
+        uses: actions/checkout@v3  # Checkout the repository
 
       - name: Set up environment
         run: |
@@ -39,11 +39,11 @@ jobs:
       - name: Run ACinstall.sh script
         run: |
           chmod +x ./ACinstall.sh  # Make sure the script is executable
-          INSTALL_DIR="${GITHUB_WORKSPACE}/azerothcore"
-          MYSQL_ROOT_PASSWORD="test"  # Provide a root password
-          SERVER_IP="127.0.0.1"  # Provide the server IP
-          REALM_NAME="MyRealm"  # Provide the realm name
-          INSTALL_PLAYERBOTS="y"  # Whether to install Playerbots (y/n)
+          INSTALL_DIR="${GITHUB_WORKSPACE}/azerothcore"  # Set install directory
+          MYSQL_ROOT_PASSWORD="test"  # Set the MySQL root password
+          SERVER_IP="127.0.0.1"  # Set the server IP
+          REALM_NAME="MyRealm"  # Set the realm name
+          INSTALL_PLAYERBOTS="y"  # Set to install Playerbots
           export INSTALL_DIR MYSQL_ROOT_PASSWORD SERVER_IP REALM_NAME INSTALL_PLAYERBOTS
           echo "Running ACinstall.sh script..."
-          ./ACinstall.sh  # Run the install script with the passed directory
+          ./ACinstall.sh  # Run the script with the passed environment variables
