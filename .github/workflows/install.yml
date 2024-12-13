@@ -40,6 +40,10 @@ jobs:
         run: |
           chmod +x ./ACinstall.sh  # Make sure the script is executable
           INSTALL_DIR="${GITHUB_WORKSPACE}/azerothcore"
-          export INSTALL_DIR
+          MYSQL_ROOT_PASSWORD="test"  # Provide a root password
+          SERVER_IP="127.0.0.1"  # Provide the server IP
+          REALM_NAME="MyRealm"  # Provide the realm name
+          INSTALL_PLAYERBOTS="y"  # Whether to install Playerbots (y/n)
+          export INSTALL_DIR MYSQL_ROOT_PASSWORD SERVER_IP REALM_NAME INSTALL_PLAYERBOTS
           echo "Running ACinstall.sh script..."
           ./ACinstall.sh  # Run the install script with the passed directory
