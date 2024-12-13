@@ -13,7 +13,10 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Run the install script
+      - name: Run ACinstall.sh script
         run: |
-          chmod +x ./ACinstall.sh
-          ./ACinstall.sh
+          chmod +x ./ACinstall.sh  # Make sure the script is executable
+          # Set a temporary directory for the installation if needed
+          INSTALL_DIR="${GITHUB_WORKSPACE}/azerothcore"
+          export INSTALL_DIR
+          ./ACinstall.sh  # Run the install script with the passed directory
