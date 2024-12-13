@@ -3,7 +3,7 @@ name: Test AzerothCore Installation Script
 on:
   push:
     branches:
-      - main
+      - main  # Or any branch you want to trigger the workflow on
 
 jobs:
   build:
@@ -11,12 +11,35 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Checks out the code so that your install script is available
+
+      - name: Set up environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git \
+            cmake \
+            make \
+            gcc \
+            g++ \
+            clang \
+            libssl-dev \
+            libbz2-dev \
+            libreadline-dev \
+            libncurses-dev \
+            libboost-all-dev \
+            lsb-release \
+            gnupg \
+            wget \
+            p7zip-full \
+            mysql-server \
+            libmysqlclient-dev \
+            build-essential
 
       - name: Run ACinstall.sh script
         run: |
           chmod +x ./ACinstall.sh  # Make sure the script is executable
-          # Set a temporary directory for the installation if needed
           INSTALL_DIR="${GITHUB_WORKSPACE}/azerothcore"
           export INSTALL_DIR
+          echo "Running ACinstall.sh script..."
           ./ACinstall.sh  # Run the install script with the passed directory
