@@ -40,7 +40,8 @@ echo -e "${CYAN}Install Playerbots: $INSTALL_PLAYERBOTS${NC}"
 
 # Confirm with the user before proceeding (defaults to yes)
 read -p "$(echo -e "${YELLOW}Proceed with these settings? (y/n): ${NC}")" CONFIRM
-CONFIRM="${CONFIRM:-y}"  # Default to "yes" if no input is provided
+#CONFIRM="${CONFIRM:-y}"
+CONFIRM="y"  # Default to "yes" if no input is provided
 
 if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
   echo -e "${RED}Installation aborted.${NC}"
