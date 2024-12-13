@@ -1,52 +1,35 @@
-name: Test AzerothCore Installation Script
+name: AzerothCore Installation
 
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to main (or your desired branch)
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Run on the latest Ubuntu image
+  install:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3  # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up environment
+      - name: Set up MySQL
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            git \
-            cmake \
-            make \
-            gcc \
-            g++ \
-            clang \
-            libssl-dev \
-            libbz2-dev \
-            libreadline-dev \
-            libncurses-dev \
-            libboost-all-dev \
-            lsb-release \
-            gnupg \
-            wget \
-            p7zip-full \
-            mysql-server \
-            libmysqlclient-dev \
-            build-essential
+          sudo apt-get install -y mysql-server
 
-      - name: Run ACinstall.sh script
+      - name: Make install script executable
+        run: chmod +x ./ACinstall.sh
+
+      - name: Run ACinstall.sh
+        env:
+          INSTALL_DIR: "${GITHUB_WORKSPACE}/azerothcore"
+          MYSQL_ROOT_PASSWORD: "test"
+          SERVER_IP: "127.0.0.1"
+          REALM_NAME: "MyRealm"
+          INSTALL_PLAYERBOTS: "y"
         run: |
-          chmod +x ./ACinstall.sh  # Make sure the script is executable
-          INSTALL_DIR="${GITHUB_WORKSPACE}/azerothcore"  # Set install directory
-          MYSQL_ROOT_PASSWORD="test"  # Set the MySQL root password
-          SERVER_IP="127.0.0.1"  # Set the server IP
-          REALM_NAME="MyRealm"  # Set the realm name
-          INSTALL_PLAYERBOTS="y"  # Set to install Playerbots
-          export INSTALL_DIR MYSQL_ROOT_PASSWORD SERVER_IP REALM_NAME INSTALL_PLAYERBOTS
-          echo "Running ACinstall.sh script..."
-          ./ACinstall.sh  # Run the script with the passed environment variable
-          
-          run: |
-          echo -e "y" | ./ACinstall.sh  # Automatically answer 'y' to the prompt
+          yes | ./ACinstall.sh  # Automatically sends 'y' for confirmation prompt
