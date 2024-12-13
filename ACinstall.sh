@@ -39,9 +39,8 @@ echo -e "${CYAN}Realm Name: $REALM_NAME${NC}"
 echo -e "${CYAN}Install Playerbots: $INSTALL_PLAYERBOTS${NC}"
 
 # Confirm with the user before proceeding (defaults to yes)
-read -p "$(echo -e "${YELLOW}Proceed with these settings? (y/n): ${NC}")" CONFIRM
-#CONFIRM="${CONFIRM:-y}"
-CONFIRM="y"  # Default to "yes" if no input is provided
+read -p "$(echo -e "${CYAN}Proceed with these settings? (y/n): ${NC}")" CONFIRM
+CONFIRM="y"  # Automatically set to 'y' to continue
 
 if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
   echo -e "${RED}Installation aborted.${NC}"
