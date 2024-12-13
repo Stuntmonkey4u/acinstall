@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Exit script on error
-set -e
+set -ex
 
 # Color definitions
 CYAN='\033[0;36m'        # Cyan for spinner and interactive text
