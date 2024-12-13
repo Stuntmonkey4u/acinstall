@@ -15,5 +15,5 @@ jobs:
 
       - name: Run the install script
         run: |
-          chmod +x ./install_script.sh
-          ./install_script.sh
+          chmod +x ./ACinstall.sh
+          ./ACinstall.sh
