@@ -1,0 +1,19 @@
+name: Test AzerothCore Installation Script
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Run the install script
+        run: |
+          chmod +x ./install_script.sh
+          ./install_script.sh
