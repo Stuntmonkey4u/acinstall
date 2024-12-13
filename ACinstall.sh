@@ -77,7 +77,8 @@ cd "$INSTALL_DIR/azerothcore"
 mkdir build
 cd build
 
-cmake ../ -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR/azerothcore/env/dist/" -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_WARNINGS=1 -DTOOLS_BUILD=all -DSCRIPTS=static -DMODULES=static || { echo "CMake configuration failed"; exit 1; }
+cmake ../ -DCMAKE_INSTALL_PREFIX=$HOME/azerothcore/env/dist/ -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DWITH_WARNINGS=1 -DTOOLS_BUILD=all -DSCRIPTS=static -DMODULES=static
+ || { echo "CMake configuration failed"; exit 1; }
 
 make -j "$(nproc)" install || { echo "Build failed"; exit 1; }
 
