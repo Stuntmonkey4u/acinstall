@@ -46,4 +46,7 @@ jobs:
           INSTALL_PLAYERBOTS="y"  # Set to install Playerbots
           export INSTALL_DIR MYSQL_ROOT_PASSWORD SERVER_IP REALM_NAME INSTALL_PLAYERBOTS
           echo "Running ACinstall.sh script..."
-          ./ACinstall.sh  # Run the script with the passed environment variables
+          ./ACinstall.sh  # Run the script with the passed environment variable
+          
+          run: |
+          echo -e "y" | ./ACinstall.sh  # Automatically answer 'y' to the prompt
