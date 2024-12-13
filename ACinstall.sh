@@ -19,7 +19,7 @@ echo -e "${BLUE}Welcome to the AzerothCore installation script!${NC}"
 DEFAULT_INSTALL_DIR="/home/$USER/azerothcore"
 
 # 1. Ask for user input (installation directory, MySQL root password, server IP, realm name, Playerbots)
-read -p "$(echo -e ${CYAN}Enter the directory where you want to install AzerothCore (default: ${DEFAULT_INSTALL_DIR}): ${NC})" INSTALL_DIR
+read -p "$(echo -e "${CYAN}Enter the directory where you want to install AzerothCore (default: $DEFAULT_INSTALL_DIR): ${NC}")" INSTALL_DIR
 INSTALL_DIR=${INSTALL_DIR:-$DEFAULT_INSTALL_DIR}
 
 # Check if directory exists, if not create it
@@ -29,17 +29,17 @@ if [ ! -d "$INSTALL_DIR" ]; then
 fi
 
 # MySQL root password (secure handling)
-read -sp "$(echo -e ${CYAN}Enter the MySQL root password you want to use: ${NC})" MYSQL_ROOT_PASSWORD
+read -sp "$(echo -e "${CYAN}Enter the MySQL root password: ${NC}")" MYSQL_ROOT_PASSWORD
 echo ""
 
 # Server IP address (for realmlist)
-read -p "$(echo -e ${CYAN}Enter the server IP address you want to use (e.g., 192.168.60.174): ${NC})" SERVER_IP
+read -p "$(echo -e "${CYAN}Enter the server IP address (e.g., 192.168.60.174): ${NC}")" SERVER_IP
 
 # Realm name
-read -p "$(echo -e ${CYAN}Enter a realm name (e.g., 'Northrend'): ${NC})" REALM_NAME
+read -p "$(echo -e "${CYAN}Enter the realm name (e.g., 'Northrend'): ${NC}")" REALM_NAME
 
 # Ask if they want to install the Playerbots module
-read -p "$(echo -e ${CYAN}Do you want to install the Playerbots module? (y/n): ${NC})" INSTALL_PLAYERBOTS
+read -p "$(echo -e "${CYAN}Do you want to install the Playerbots module? (y/n): ${NC}")" INSTALL_PLAYERBOTS
 
 # 2. Install dependencies
 echo -e "${BLUE}Installing dependencies...${NC}"
@@ -121,7 +121,7 @@ EOF
 # 8. Realmlist Configuration
 echo -e "${BLUE}Configuring realmlist and databases...${NC}"
 sudo systemctl status mysql
-read -p "$(echo -e ${YELLOW}Press Enter to continue after confirming MySQL is running...${NC})"
+read -p "$(echo -e "${YELLOW}Press Enter to continue after confirming MySQL is running...${NC}")"
 
 # Update MySQL user and databases
 sudo mysql -u root << EOF
