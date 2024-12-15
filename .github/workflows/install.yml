@@ -26,7 +26,7 @@ jobs:
 
       - name: Run ACinstall.sh
         env:
-          INSTALL_DIR: "${GITHUB_WORKSPACE}/azerothcore"
+          INSTALL_DIR: "${GITHUB_WORKSPACE}"
           MYSQL_ROOT_PASSWORD: "test"
           SERVER_IP: "127.0.0.1"
           REALM_NAME: "MyRealm"
