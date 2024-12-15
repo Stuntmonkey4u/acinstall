@@ -3,6 +3,9 @@
 # Exit script on error
 set -e
 
+# Set USER to root if not already set (common in Docker containers)
+USER=${USER:-root}
+
 # Color definitions
 CYAN='\033[0;36m'        # Cyan for spinner and interactive text
 GREEN='\033[38;5;82m'    # Green for success messages
@@ -16,7 +19,7 @@ NC='\033[0m'             # No Color (reset)
 echo -e "${BLUE}Welcome to the AzerothCore installation script!${NC}"
 
 # Set default installation directory
-DEFAULT_INSTALL_DIR="/home/$USER/azerothcore"
+DEFAULT_INSTALL_DIR="/home/${USER}/azerothcore"
 
 # 1. Ask for user input (installation directory, MySQL root password, server IP, realm name, Playerbots)
 read -p "$(echo -e ${CYAN}Enter the directory where you want to install AzerothCore \(default: ${DEFAULT_INSTALL_DIR}\): ${NC})" INSTALL_DIR
@@ -125,28 +128,4 @@ read -p "$(echo -e ${YELLOW}Press Enter to continue after confirming MySQL is ru
 
 # Update MySQL user and databases
 sudo mysql -u root << EOF
-use acore_auth;
-DELETE FROM realmlist WHERE id=1;
-INSERT INTO realmlist (id, name, address, localAddress, localSubnetMask, port, icon, flag, timezone, allowedSecurityLevel, gamebuild)
-VALUES ('1', '$REALM_NAME', '$SERVER_IP', '127.0.0.1', '255.255.255.0', '8085', '1', '0', '1', '0', '12340');
-EXIT;
-EOF
-
-# 9. Start the Server
-echo -e "${BLUE}Starting the authserver and worldserver...${NC}"
-cd $INSTALL_DIR/azerothcore/env/dist/bin
-
-# Start authserver
-sudo ./authserver &
-
-# Wait for authserver to start
-while ! nc -z localhost 8085; do
-    echo -e "${YELLOW}Waiting for authserver to start...${NC}"
-    sleep 5
-done
-
-# Once authserver is ready, start worldserver
-sudo ./worldserver
-
-# End of script
-echo -e "${GREEN}AzerothCore has been successfully installed and the servers are running.${NC}"
+use acore_auth
