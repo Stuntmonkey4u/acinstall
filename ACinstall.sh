@@ -56,18 +56,18 @@ read INSTALL_PLAYERBOTS
 
 # 2. Install dependencies
 echo -e "${BLUE}Installing dependencies...${NC}"
-apt-get update && apt-get install -y git cmake make gcc g++ clang libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev lsb-release gnupg wget p7zip-full
+sudo apt-get update && sudo apt-get install -y git cmake make gcc g++ clang libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev lsb-release gnupg wget p7zip-full
 
 # 3. Install MySQL server
 echo -e "${BLUE}Installing MySQL server...${NC}"
 wget https://dev.mysql.com/get/mysql-apt-config_0.8.32-1_all.deb
-dpkg -i ./mysql-apt-config_0.8.32-1_all.deb
-apt-get update
-apt-get install -y mysql-server libmysqlclient-dev
+sudo dpkg -i ./mysql-apt-config_0.8.32-1_all.deb
+sudo apt-get update
+sudo apt-get install -y mysql-server libmysqlclient-dev
 
 # Install build essentials
 echo -e "${BLUE}Installing build essentials...${NC}"
-apt-get update && apt install build-essential -y
+sudo apt-get update && sudo apt install build-essential -y
 
 # 4. Clone and Build AzerothCore
 echo -e "${BLUE}Cloning AzerothCore repository...${NC}"
