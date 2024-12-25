@@ -153,16 +153,16 @@ msg "$GREEN" "AzerothCore installed."
 # 9. Database Setup
 msg "$YELLOW" "Setting up database..."
 # Create the database
-mysql -u root -p"$ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS acore_characters;"
-mysql -u root -p"$ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS acore_auth;"
-mysql -u root -p"$ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS acore_world;"
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS acore_characters;"
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS acore_auth;"
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS acore_world;"
 msg "$GREEN" "Created acore databases."
 
 # Import SQL files for DB creation
 msg "$YELLOW" "Importing SQL files..."
-mysql -u root -p"$ROOT_PASSWORD" acore_auth < ../sql/auth/auth_full.sql
-mysql -u root -p"$ROOT_PASSWORD" acore_world < ../sql/world/world_full.sql
-mysql -u root -p"$ROOT_PASSWORD" acore_characters < ../sql/characters/characters_full.sql
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" acore_auth < ../sql/auth/auth_full.sql
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" acore_world < ../sql/world/world_full.sql
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" acore_characters < ../sql/characters/characters_full.sql
 msg "$GREEN" "SQL files imported."
 
 # 10. Configuration
@@ -187,10 +187,10 @@ if [[ "$INSTALL_PLAYERBOTS" == "y" ]]; then
     make install
     msg "$GREEN" "Playerbots module installed."
     #Copy example playerbots configs to correct directory.
-   msg "$YELLOW" "Copying Playerbots configs"
+    msg "$YELLOW" "Copying Playerbots configs"
     cp "$INSTALL_DIR/azerothcore/modules/playerbots/configs/playerbots.conf.dist" "$INSTALL_DIR/azerothcore/env/dist/etc/playerbots.conf"
     msg "$GREEN" "Playerbots configs copied"
-    msg "$YELLOW" "Please edit the server configuration files located in:"
+     msg "$YELLOW" "Please edit the server configuration files located in:"
     msg "$YELLOW" "$INSTALL_DIR/azerothcore/env/dist/etc"
     msg "$YELLOW" "You can now enable the Playerbot module by adding the following into the worldserver.conf file under the modules section: Module = \"mod-playerbots\""
 fi
@@ -199,7 +199,7 @@ fi
 msg "$YELLOW" "Configuring realmlist and databases..."
 
 # Update MySQL user and databases
-mysql -u root -p"$ROOT_PASSWORD" << EOF
+mysql -h localhost -P 3306 -u root -p"$ROOT_PASSWORD" << EOF
 use acore_auth;
 DELETE FROM realmlist WHERE id=1;
 INSERT INTO realmlist (id, name, address, localAddress, localSubnetMask, port, icon, flag, timezone, allowedSecurityLevel, gamebuild)
