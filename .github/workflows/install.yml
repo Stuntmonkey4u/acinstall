@@ -23,9 +23,9 @@ jobs:
           # Set a password for the mysql root user, and skip security checks.
           sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${{ secrets.MYSQL_ROOT_PASSWORD }}';"
           sudo mysql -e "FLUSH PRIVILEGES;"
-          #Start the service
+          # Start the service
           sudo service mysql start
-          #add bind-address = 0.0.0.0 to config so it listens on all ports.
+          # Add bind-address = 0.0.0.0 to config so it listens on all ports.
           sudo sed -i 's/^#bind-address/#bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
           sudo sed -i '$a bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
           # Restart the server after making changes to the config.
@@ -34,6 +34,11 @@ jobs:
           sleep 10
           sudo systemctl status mysql
 
+      - name: Check MySQL service status
+        run: |
+          sudo service mysql start
+          sleep 10
+          sudo systemctl status mysql
 
       - name: Make install script executable
         run: chmod +x ./ACinstall.sh
