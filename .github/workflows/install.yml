@@ -20,16 +20,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y mysql-server
+          # Set a password for the mysql root user, and skip security checks.
+          sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${{ secrets.MYSQL_ROOT_PASSWORD }}';"
+          sudo mysql -e "FLUSH PRIVILEGES;"
 
       - name: Make install script executable
         run: chmod +x ./ACinstall.sh
 
       - name: Run ACinstall.sh
         env:
-          INSTALL_DIR: "${GITHUB_WORKSPACE}"
-          MYSQL_ROOT_PASSWORD: "test"
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} # use secrets instead of environment variable
+          INSTALL_PLAYERBOTS: y # set to yes for automatic install during github action
           SERVER_IP: "127.0.0.1"
           REALM_NAME: "MyRealm"
-          INSTALL_PLAYERBOTS: "y"
         run: |
-          yes | ./ACinstall.sh  # Automatically sends 'y' for confirmation prompt
+          yes | sudo ./ACinstall.sh
