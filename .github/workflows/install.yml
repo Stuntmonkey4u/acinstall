@@ -25,6 +25,15 @@ jobs:
           sudo mysql -e "FLUSH PRIVILEGES;"
           #Start the service
           sudo service mysql start
+          #add bind-address = 0.0.0.0 to config so it listens on all ports.
+          sudo sed -i 's/^#bind-address/#bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
+          sudo sed -i '$a bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf
+          # Restart the server after making changes to the config.
+          sudo service mysql restart
+          # Add a small wait to make sure the service is running.
+          sleep 10
+          sudo systemctl status mysql
+
 
       - name: Make install script executable
         run: chmod +x ./ACinstall.sh
