@@ -87,7 +87,7 @@ async function checkServiceHealth(service) {
     if (error.code) { // Axios error code (e.g., ENOTFOUND, ECONNREFUSED)
         errorMessage = error.code;
     } else if (error.response && error.response.status) { // HTTP status from error response
-        errorMessage = \`Status \${error.response.status}\`;
+        errorMessage = `Status ${error.response.status}`;
     }
     return { ...service, status: 'down', error: errorMessage, lastChecked: new Date().toISOString() };
   }
@@ -233,12 +233,12 @@ async function startServer() {
     // console.log('Admin password hashed.'); // Keep console cleaner
 
     app.listen(PORT, () => {
-      console.log(\`Backend server is running on http://localhost:\${PORT}\`);
-      // console.log(\`Admin username: \${ADMIN_USERNAME}\`);
-      // console.log(\`Admin password (for local dev): \${ADMIN_PASSWORD}\`);
-      // console.log(\`Session secret (for local dev): \${SESSION_SECRET}\`);
+      console.log(`Backend server is running on http://localhost:${PORT}`);
+      // console.log(`Admin username: ${ADMIN_USERNAME}`);
+      // console.log(`Admin password (for local dev): ${ADMIN_PASSWORD}`);
+      // console.log(`Session secret (for local dev): ${SESSION_SECRET}`);
     });
-  } catch (error)
+  } catch (error) {
     console.error("Failed to hash admin password or start server:", error);
     process.exit(1);
   }

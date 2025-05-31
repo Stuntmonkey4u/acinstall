@@ -90,7 +90,7 @@ export default {
 
     // Create an Axios instance for admin actions, ensuring credentials are sent
     const adminApiClient = axios.create({
-        baseURL: 'http://localhost:3001/api', // Backend API base URL
+        baseURL: import.meta.env.VITE_API_BASE_URL,
         withCredentials: true // Important for sessions/cookies
     });
 
