@@ -152,12 +152,13 @@ export default {
       try {
         if (serviceToEdit.value && serviceToEdit.value.id) {
           // Update existing service
-          const response = await adminApiClient.put(\`/services/\${serviceToEdit.value.id}\`, serviceData);
-          setGlobalMessage(\`Service '\${response.data.name}' updated successfully!\`, 'success');
+          const url = '/services/' + serviceToEdit.value.id;
+          const response = await adminApiClient.put(url, serviceData);
+          setGlobalMessage(`Service '${response.data.name}' updated successfully!`, 'success');
         } else {
           // Add new service
           const response = await adminApiClient.post('/services', serviceData);
-          setGlobalMessage(\`Service '\${response.data.name}' added successfully!\`, 'success');
+          setGlobalMessage(`Service '${response.data.name}' added successfully!`, 'success');
         }
         hideForm();
         await fetchServices(true); // Refresh list
@@ -171,11 +172,11 @@ export default {
     };
 
     const confirmDeleteService = async (service) => {
-      if (window.confirm(\`Are you sure you want to delete the service "\${service.name}"?\`)) {
+      if (window.confirm(`Are you sure you want to delete the service "${service.name}"?`)) {
         listLoading.value = true; // Use listLoading as it affects the table area
         try {
-          await adminApiClient.delete(\`/services/\${service.id}\`);
-          setGlobalMessage(\`Service '\${service.name}' deleted successfully.\`, 'success');
+          await adminApiClient.delete(`/services/${service.id}`);
+          setGlobalMessage(`Service '${service.name}' deleted successfully.`, 'success');
           await fetchServices(true); // Refresh list
         } catch (err) {
           console.error('Failed to delete service:', err);

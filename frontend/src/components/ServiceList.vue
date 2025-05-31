@@ -114,7 +114,7 @@ export default {
         console.error('Failed to fetch service statuses:', err);
         this.error = err;
         if (err.response) {
-          this.error.message = err.response.data.message || \`Server error: \${err.response.status}\`;
+          this.error.message = err.response.data.message || `Server error: ${err.response.status}`;
         } else if (err.request) {
           this.error.message = 'No response from server. Is it running?';
         } else {

@@ -67,7 +67,7 @@ export default {
   methods: {
     getIconUrl(iconName) {
       // Assuming icons are in frontend/public/icons/
-      return \`/icons/\${iconName}\`;
+      return `/icons/${iconName}`;
     },
     normalizedUrl(url) {
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
