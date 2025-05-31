@@ -13,6 +13,7 @@
     "axios": "^1.9.0",
     "postcss": "^8.5.4",
     "tailwindcss": "^4.1.8",
+    "vue-router": "^4.4.0", // Add this line (ensure comma on previous line if needed)
     "vue": "^3.5.13"
   },
   "devDependencies": {
