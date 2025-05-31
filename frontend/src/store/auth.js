@@ -4,7 +4,7 @@ import router from '../router'; // Import router for navigation
 
 // Axios instance that ensures credentials are sent
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3001/api', // Your backend API base URL
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true // Important for sessions/cookies
 });
 
