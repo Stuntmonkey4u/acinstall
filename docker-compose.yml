@@ -28,6 +28,7 @@ services:
         # For now, assuming direct call or user configures proxy if needed.
         # The frontend code currently hardcodes http://localhost:3001, so VITE_API_BASE_URL isn't actively used yet by the Vue app.
         VITE_API_BASE_URL: /api
+        VITE_API_BASE_URL=/api
     container_name: homedash_frontend
     restart: unless-stopped
     ports:
