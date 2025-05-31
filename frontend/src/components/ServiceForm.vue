@@ -4,22 +4,26 @@
       <label for="serviceName" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Service Name</label>
       <input type="text" v-model="editableService.name" id="serviceName" required
              class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white dark:placeholder-gray-400">
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white">
     </div>
     <div>
       <label for="serviceUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Service URL</label>
       <input type="url" v-model="editableService.url" id="serviceUrl" required placeholder="e.g., http://localhost:8080 or mynas.local"
              class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white dark:placeholder-gray-400">
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white">
     </div>
     <div>
       <label for="serviceCategory" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
       <input type="text" v-model="editableService.category" id="serviceCategory" placeholder="e.g., Media, Network, Utilities"
              class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white dark:placeholder-gray-400">
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white">
     </div>
     <div>
       <label for="serviceIcon" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Icon Filename</label>
       <input type="text" v-model="editableService.icon" id="serviceIcon" placeholder="e.g., sonarr.png (place in public/icons)"
              pattern="[\w\-\_\.]+\.(png|jpe?g|svg|gif|webp|ico)" title="Must be a valid filename ending in .png, .jpg, .svg, .gif, .webp, or .ico"
              class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white dark:placeholder-gray-400">
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-600 dark:text-white">
       <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Place icon files in the 'frontend/public/icons/' directory.</p>
     </div>
     <div class="flex justify-end space-x-3">

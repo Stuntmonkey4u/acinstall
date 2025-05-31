@@ -19,6 +19,7 @@ services:
     networks:
       - homedash_network
 
+
   frontend:
     build:
       context: ./frontend
