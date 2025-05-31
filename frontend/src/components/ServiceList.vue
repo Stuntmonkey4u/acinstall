@@ -14,7 +14,6 @@
     </div>
 
     <div v-if="isLoading && Object.keys(groupedServices).length === 0" class="text-center py-10">
-    <div v-if="isLoading && services.length === 0" class="text-center py-10">
       <p class="text-lg text-gray-600 dark:text-gray-300">Loading services and their statuses...</p>
     </div>
     <div v-else-if="error" class="text-center py-10">
@@ -33,12 +32,6 @@
           <ServiceCard v-for="service in servicesInCategory" :key="service.id" :service="service" />
         </div>
       </div>
-    <div v-else-if="services.length === 0" class="text-center py-10">
-      <p class="text-lg text-gray-600 dark:text-gray-300">No services configured yet.</p>
-      <!-- Optional: Link to admin page if user is admin -->
-    </div>
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <ServiceCard v-for="service in services" :key="service.id" :service="service" />
     </div>
     <div v-if="lastUpdated" class="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
       Last updated: {{ new Date(lastUpdated).toLocaleTimeString() }}
@@ -62,9 +55,6 @@ export default {
       services: [], // Raw list from API
       isLoading: true,
       isRefreshing: false,
-      services: [], // Will now store services with their status
-      isLoading: true, // Initial load
-      isRefreshing: false, // Subsequent refreshes
       error: null,
       refreshIntervalId: null,
       lastUpdated: null,
@@ -100,8 +90,6 @@ export default {
   },
   async created() {
     await this.fetchServiceStatuses(false);
-  async created() {
-    await this.fetchServiceStatuses(false); // Initial fetch
     this.refreshIntervalId = setInterval(() => this.fetchServiceStatuses(true), REFRESH_INTERVAL);
   },
   beforeUnmount() {
@@ -121,8 +109,6 @@ export default {
       try {
         const response = await axios.get('http://localhost:3001/api/services/statuses');
         this.services = response.data; // Keep raw list, computed prop will group and sort
-        // Sort services: name ascending
-        this.services = response.data.sort((a, b) => a.name.localeCompare(b.name));
         this.lastUpdated = Date.now();
       } catch (err) {
         console.error('Failed to fetch service statuses:', err);
@@ -134,7 +120,6 @@ export default {
         } else {
           this.error.message = err.message;
         }
-        // Do not clear services on error, so the user can still see the last known state
       } finally {
         this.isLoading = false;
         this.isRefreshing = false;
