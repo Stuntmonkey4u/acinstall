@@ -19,6 +19,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }
+
       // Alternative using path.resolve if preferred (would need path import):
       // '@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src'),
     vue(),
