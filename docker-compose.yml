@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: homedash_backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001" # Expose backend on host port 3001
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - SESSION_SECRET=your_strong_session_secret_here_please_change # IMPORTANT: Change this!
+      - ADMIN_USERNAME=admin # Default admin, change as needed
+      - ADMIN_PASSWORD=changeme # Default password, CHANGE THIS!
+      - FRONTEND_URL=http://localhost:8080 # URL of the frontend for CORS
+    volumes:
+      - ./data/services.json:/app/backend/services.json # Persist services data
+    networks:
+      - homedash_network
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api
+    container_name: homedash_frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80" # Expose frontend on host port 8080
+    depends_on:
+      - backend # Optional: ensures backend starts before frontend
+    networks:
+      - homedash_network
+
+volumes:
+  homedash_services_data: # This volume isn't explicitly used by services.json path volume, but good for other data.
+    # The ./data/services.json uses a bind mount.
+    # If you prefer a named volume for services.json:
+    #  volumes:
+    #    - homedash_services_data:/app/backend/services.json
+    # And then define the volume:
+    # volumes:
+    #   homedash_services_data:
+
+networks:
+  homedash_network:
+    driver: bridge
