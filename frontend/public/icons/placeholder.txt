@@ -1,0 +1,5 @@
+This directory is for service icons.
+Example: if a service has "icon": "my-service.png", place "my-service.png" here.
+The sample services.json uses "router.png" and "nas.png".
+You can download or create these icons and place them here.
+For now, this file is a placeholder.
