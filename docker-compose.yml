@@ -19,7 +19,8 @@ services:
     networks:
       - homedash_network
 
-    frontend:
+
+  frontend:
     build:
       context: ./frontend
       args:
@@ -29,7 +30,7 @@ services:
     ports:
       - "8080:80" # Expose frontend on host port 8080
     depends_on:
-      - backend
+      - backend # Optional: ensures backend starts before frontend
     networks:
       - homedash_network
 
