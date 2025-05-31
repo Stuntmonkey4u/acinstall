@@ -23,6 +23,7 @@ services:
     build:
       context: ./frontend
       args:
+        VITE_API_BASE_URL: /api
         # If you configure Nginx to proxy /api to backend, then VITE_API_BASE_URL should be /api
         # If frontend directly calls backend on its port, this might not be needed or should be http://localhost:3001/api
         # For now, assuming direct call or user configures proxy if needed.
