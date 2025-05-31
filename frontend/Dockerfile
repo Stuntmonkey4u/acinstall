@@ -18,9 +18,10 @@ COPY . .
 # The frontend code currently hardcodes http://localhost:3001. This should ideally be configurable.
 # We'll add a placeholder for VITE_API_BASE_URL to be used during build if needed.
 ARG VITE_API_BASE_URL=/api # Default if not provided, can be overridden at build time
-ENV VITE_API_BASE_URL=\${VITE_API_BASE_URL}
+# ENV VITE_API_BASE_URL=\${VITE_API_BASE_URL}
 
-RUN npm run build
+RUN echo "VITE_API_BASE_URL for build is: \${VITE_API_BASE_URL}"
+RUN VITE_API_BASE_URL="\${VITE_API_BASE_URL}" npm run build
 
 # ---- Serve Stage ----
 FROM nginx:1.25-alpine AS serve-stage

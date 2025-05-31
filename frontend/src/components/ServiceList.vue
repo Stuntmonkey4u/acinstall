@@ -18,7 +18,7 @@
     </div>
     <div v-else-if="error" class="text-center py-10">
       <p class="text-lg text-red-500 dark:text-red-400">Error loading service statuses: {{ error.message }}</p>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Ensure the backend is running (port 3001) and accessible.</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">Ensure the backend is running (port 3002) and accessible.</p>
     </div>
     <div v-else-if="Object.keys(groupedServices).length === 0 && !isLoading" class="text-center py-10">
       <p class="text-lg text-gray-600 dark:text-gray-300">No services configured yet.</p>
@@ -107,14 +107,14 @@ export default {
       this.error = null;
 
       try {
-        const response = await axios.get('http://localhost:3001/api/services/statuses');
+        const response = await axios.get(import.meta.env.VITE_API_BASE_URL + '/services/statuses');
         this.services = response.data; // Keep raw list, computed prop will group and sort
         this.lastUpdated = Date.now();
       } catch (err) {
         console.error('Failed to fetch service statuses:', err);
         this.error = err;
         if (err.response) {
-          this.error.message = err.response.data.message || \`Server error: \${err.response.status}\`;
+          this.error.message = err.response.data.message || `Server error: ${err.response.status}`;
         } else if (err.request) {
           this.error.message = 'No response from server. Is it running?';
         } else {

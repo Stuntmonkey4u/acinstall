@@ -52,7 +52,7 @@ HomeDash is a responsive, visually polished Start Page dashboard designed for ho
 
 4.  **Access HomeDash:**
     - Frontend (Main Application): [http://localhost:8080](http://localhost:8080)
-    - Backend API (if needed for direct access/testing): [http://localhost:3001](http://localhost:3001)
+    - Backend API (if needed for direct access/testing): [http://localhost:3002](http://localhost:3002)
 
 ## Default Admin Credentials
 
@@ -98,7 +98,7 @@ cd frontend
 npm install
 npm run dev
 \`\`\`
-The frontend development server will typically run on `http://localhost:5173` (Vite's default). Ensure the `FRONTEND_URL` in the backend's `.env` (or equivalent config) matches this for CORS during development. The frontend API calls currently point to `http://localhost:3001`.
+The frontend development server will typically run on `http://localhost:5173` (Vite's default). Ensure the `FRONTEND_URL` in the backend's `.env` (or equivalent config) matches this for CORS during development. Frontend API calls are directed to the URL specified in the \`VITE_API_BASE_URL\` environment variable. When running via Docker Compose, this is automatically set to \`http://localhost:3002/api\`. For local frontend development (e.g., using \`npm run dev\` in the \`frontend\` directory), you should create a \`.env\` file (e.g., \`frontend/.env.development\` or \`frontend/.env.local\`) in the \`frontend\` directory and set \`VITE_API_BASE_URL=http://localhost:3001/api\` to connect to a locally running backend (which typically runs on port 3001 as per \`backend/.env.example\`).
 
 ## HTTPS Support
 
