@@ -13,6 +13,7 @@
       </button>
     </div>
 
+    <div v-if="isLoading && Object.keys(groupedServices).length === 0" class="text-center py-10">
     <div v-if="isLoading && services.length === 0" class="text-center py-10">
       <p class="text-lg text-gray-600 dark:text-gray-300">Loading services and their statuses...</p>
     </div>
@@ -20,6 +21,18 @@
       <p class="text-lg text-red-500 dark:text-red-400">Error loading service statuses: {{ error.message }}</p>
       <p class="text-sm text-gray-500 dark:text-gray-400">Ensure the backend is running (port 3001) and accessible.</p>
     </div>
+    <div v-else-if="Object.keys(groupedServices).length === 0 && !isLoading" class="text-center py-10">
+      <p class="text-lg text-gray-600 dark:text-gray-300">No services configured yet.</p>
+    </div>
+    <div v-else>
+      <div v-for="(servicesInCategory, category) in groupedServices" :key="category" class="mb-8">
+        <h3 class="text-xl font-semibold mb-3 text-gray-700 dark:text-gray-300 capitalize sticky top-0 bg-gray-100 dark:bg-gray-900 py-2 z-10">
+          {{ category === 'undefined' || category === '' || category === 'General' ? 'General' : category }}
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <ServiceCard v-for="service in servicesInCategory" :key="service.id" :service="service" />
+        </div>
+      </div>
     <div v-else-if="services.length === 0" class="text-center py-10">
       <p class="text-lg text-gray-600 dark:text-gray-300">No services configured yet.</p>
       <!-- Optional: Link to admin page if user is admin -->
@@ -46,6 +59,9 @@ export default {
   },
   data() {
     return {
+      services: [], // Raw list from API
+      isLoading: true,
+      isRefreshing: false,
       services: [], // Will now store services with their status
       isLoading: true, // Initial load
       isRefreshing: false, // Subsequent refreshes
@@ -54,6 +70,36 @@ export default {
       lastUpdated: null,
     };
   },
+  computed: {
+    groupedServices() {
+      const groups = this.services.reduce((acc, service) => {
+        let category = service.category || 'General'; // Default category
+        if (category.trim() === '') category = 'General'; // Treat empty string as General
+
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(service);
+        return acc;
+      }, {});
+
+      // Sort categories by name (optional, but good for consistency)
+      const sortedCategories = Object.keys(groups).sort((a, b) => {
+        if (a === 'General') return -1; // Always put 'General' first or last
+        if (b === 'General') return 1;
+        return a.localeCompare(b);
+      });
+
+      const result = {};
+      for (const category of sortedCategories) {
+        // Sort services within each category by name
+        result[category] = groups[category].sort((a,b) => a.name.localeCompare(b.name));
+      }
+      return result;
+    }
+  },
+  async created() {
+    await this.fetchServiceStatuses(false);
   async created() {
     await this.fetchServiceStatuses(false); // Initial fetch
     this.refreshIntervalId = setInterval(() => this.fetchServiceStatuses(true), REFRESH_INTERVAL);
@@ -74,6 +120,7 @@ export default {
 
       try {
         const response = await axios.get('http://localhost:3001/api/services/statuses');
+        this.services = response.data; // Keep raw list, computed prop will group and sort
         // Sort services: name ascending
         this.services = response.data.sort((a, b) => a.name.localeCompare(b.name));
         this.lastUpdated = Date.now();
@@ -96,3 +143,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+/* Make category headers sticky. Ensure parent has enough padding if App.vue has a fixed navbar */
+.sticky {
+  /* background-color inherits from dark/light mode via parent */
+  /* Consider adding a slight box-shadow or border to sticky headers if they overlap content visually */
+}
+</style>
