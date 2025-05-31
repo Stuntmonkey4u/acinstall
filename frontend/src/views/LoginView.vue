@@ -8,7 +8,6 @@
         </label>
         <input v-model="username"
                class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:placeholder-gray-400"
-               class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                id="username" type="text" placeholder="admin" required>
       </div>
       <div class="mb-6">
@@ -17,7 +16,6 @@
         </label>
         <input v-model="password"
                class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:placeholder-gray-400"
-               class="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                id="password" type="password" placeholder="******************" required>
       </div>
       <div v-if="auth.state.error" class="mb-4 p-3 bg-red-100 dark:bg-red-700 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 rounded">
